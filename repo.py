@@ -40,6 +40,7 @@ class DTLRepo:
 
     def pull_repo(self):
         try:
+            os.environ['GIT_SSL_NO_VERIFY'] = '1' # disable SSL verification for self-signed cert
             self.handle.log("Package devicetype-library is already installed, "
                             + f"updating {self.get_absolute_path()}")
             self.repo = Repo(self.repo_path)
@@ -59,8 +60,9 @@ class DTLRepo:
 
     def clone_repo(self):
         try:
+            os.environ['GIT_SSL_NO_VERIFY'] = '1' # disable SSL verification for self-signed cert
             self.repo = Repo.clone_from(
-                self.url, self.get_absolute_path(), branch=self.branch, config="http.sslVerify=false")
+                self.url, self.get_absolute_path(), branch=self.branch)
             self.handle.log(
                 f"Package Installed {self.repo.remotes.origin.url}")
         except exc.GitCommandError as git_error:
