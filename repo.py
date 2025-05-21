@@ -60,7 +60,7 @@ class DTLRepo:
     def clone_repo(self):
         try:
             self.repo = Repo.clone_from(
-                self.url, self.get_absolute_path(), branch=self.branch)
+                self.url, self.get_absolute_path(), branch=self.branch, config="http.sslVerify=false")
             self.handle.log(
                 f"Package Installed {self.repo.remotes.origin.url}")
         except exc.GitCommandError as git_error:
