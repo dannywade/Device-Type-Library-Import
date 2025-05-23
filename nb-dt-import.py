@@ -5,10 +5,12 @@ import yaml
 import pynetbox
 from glob import glob
 import os
+import urllib3
 
 import settings
 from netbox_api import NetBox
 
+urllib3.disable_warnings()
 
 def main():
     startTime = datetime.now()
